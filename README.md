@@ -1,39 +1,17 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Finsphera - SpaceX Mission Dashboard 🚀
 
-## Getting Started
+A modern, responsive, and animated dashboard designed to track SpaceX launches using real-time data from the SpaceX API (v5).
 
-First, run the development server:
+[Link Vercel](https://finsphera-fomprce55-batidreis-projects.vercel.app/)
+[Link GitHub](https://github.com/Batidrei/finsphera)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 1. Architecture & Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Next.js:** 
+- **Tailwind CSS:** 
+- **Motion.dev:** 
 
 ```
 finsphera
@@ -74,5 +52,37 @@ finsphera
 │  └─ window.svg
 ├─ README.md
 └─ tsconfig.json
-
 ```
+
+## 2. AI Usage (Transparency):
+
+This project was developed with the assistance of AI **(Gemini)**.
+
+I had to rely on AI, and I used Gemini because it's the most affordable and because it's the one I already have. Since it's been a while since I've fully immersed myself in a framework, I had to rely on it mainly for Next.js and generating functions and implementations, as well as for advice on architecture and best coding practices.
+
+## 3. Design Decisions:
+
+Due to the short time between design and development, I had to use the structure of a design that was provided. I considered the 4x4 grid layout to be the most optimal based on the data provided by the API. Furthermore, in terms of responsiveness, it's the most efficient for changing the grid size, and Tailwind is very helpful in this regard.
+
+I wanted to incorporate the most demonstrative feature of the API, which is displaying the emblem. I aimed to keep it as simple as possible to avoid overwhelming the user's view. By clicking on it, the user can easily access all the information.
+
+The theme color change feature was implemented for greater visual comfort.
+
+## 4. Challenges & Trade-offs:
+The biggest challenge was using technologies that were new to me; there was a bit of a learning curve with both Next.js and Tailwind CSS, but thanks to the AI's help, this curve was less steep. Regarding Tailwind, I think it wasn't too difficult for me because I know CSS very well, and it was just a matter of adapting to its class structure.
+
+And well, with the knowledge I have, and the support of AI, I consider that a decent job was done, which could be greatly improved in terms of possibly improving the structure, the quality of the code, and even the design. 
+
+The following explains in detail the challenges with each technology.
+
+### Next.js
+I found many similarities with React; I had never used it before, but I didn't feel too lost even though what I did and implemented was somewhat superficial.
+
+### Tailwind CSS
+I had heard of this CSS framework but had never used it before, and I was delighted. It implements the Modular CSS methodology, and although it does add more to the HTML code, it also makes it more practical by simply injecting classes without cluttering the CSS or barely touching it at all. I was thrilled with Tailwind CSS. At first, it was complicated, but using the documentation made it much easier. After a while, it felt like I'd been using it for ages.
+
+### Motion.dev
+I was completely unfamiliar with this library; I didn't even know it existed. I tried implementing a couple of functions, and while I haven't delved deeply into the documentation, I'm very pleased with the result.
+
+### API
+Regarding the API, I had no difficulty; I used **Insomnia** to view the data provided by the API and thus be able to implement it without any problems.
