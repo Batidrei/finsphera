@@ -6,12 +6,11 @@ import { motion, AnimatePresence } from "motion/react";
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Función para cerrar el sidebar al hacer click en un link (en mobile)
   const closeSidebar = () => setIsOpen(false);
 
   return (
     <>
-      {/* 1. Botón Hamburguesa - Solo visible en mobile (lg:hidden) */}
+      {/* Burger button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="lg:hidden fixed top-8 right-6 p-2 bg-white dark:bg-zinc-800 text-shadow-gray-950 dark:text-white rounded-lg shadow-lg active:scale-90 transition-transform z-10"
@@ -19,7 +18,7 @@ export default function Sidebar() {
         {isOpen ? "✕ Close" : "☰ Menu"}
       </button>
 
-      {/* 2. Overlay - Fondo oscuro cuando el sidebar está abierto en mobile */}
+      {/* Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -32,7 +31,7 @@ export default function Sidebar() {
         )}
       </AnimatePresence>
 
-      {/* 3. El Sidebar */}
+      {/* Sidebar */}
       <aside
         className={`
           fixed left-0 top-0 h-screen w-64 z-50
@@ -54,7 +53,7 @@ export default function Sidebar() {
           </Link>
         </nav>
 
-        {/* Footer del sidebar opcional */}
+        {/* Footer */}
         <div className="mt-auto pt-6 border-t border-blue-900 dark:border-zinc-800 text-xs text-blue-300/50">
           © 2025 SpaceX by Finsphera
         </div>
