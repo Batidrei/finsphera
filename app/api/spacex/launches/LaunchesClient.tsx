@@ -122,7 +122,7 @@ export default function LaunchesClient() {
       {/* Card Grid */}
       <div className="space-y-10">
         {chunks.map((group, groupIndex) => (
-          <div key={`${sortOrder}-${groupIndex}`} className="flex flex-wrap gap-4 justify-between">
+          <div key={`${sortOrder}-${groupIndex}`} className="flex flex-wrap gap-4 justify-between mb-4 sm:mb-10">
             {group.map((launch) => (
               <motion.article
                 layout
