@@ -10,6 +10,7 @@ export interface Launch {
       small: string | null;
       large: string | null;
     };
+    youtube_id: string | null;
     article: string | null;
     webcast: string | null;
     wikipedia: string | null;
