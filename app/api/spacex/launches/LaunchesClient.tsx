@@ -135,7 +135,7 @@ export default function LaunchesClient() {
               >
                 <div className="flex gap-4 items-start">
                   {launch.links.patch.small && (
-                    <img src={launch.links.patch.small} className="w-16 h-16 object-contain shrink-0" alt={launch.name} />
+                    <img src={launch.links.patch.small} className="w-16 h-16" alt={launch.name} />
                   )}
                   <div className="flex flex-col gap-1 overflow-hidden">
                     <h2 className="font-bold truncate">{launch.name}</h2>
