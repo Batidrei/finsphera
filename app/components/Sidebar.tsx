@@ -14,9 +14,9 @@ export default function Sidebar() {
       {/* 1. Botón Hamburguesa - Solo visible en mobile (lg:hidden) */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-8 right-6 p-2 bg-white text-shadow-gray-950 shadow-2xs rounded-lg shadow-lg active:scale-90 transition-transform"
+        className="lg:hidden fixed top-8 right-6 p-2 bg-white dark:bg-slate-800 text-shadow-gray-950 dark:text-white rounded-lg shadow-lg active:scale-90 transition-transform z-10"
       >
-        {isOpen ? "✕ Cerrar" : "☰ Menú"}
+        {isOpen ? "✕ Close" : "☰ Menu"}
       </button>
 
       {/* 2. Overlay - Fondo oscuro cuando el sidebar está abierto en mobile */}
@@ -27,7 +27,7 @@ export default function Sidebar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeSidebar}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[40] lg:hidden"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
           />
         )}
       </AnimatePresence>
@@ -35,18 +35,18 @@ export default function Sidebar() {
       {/* 3. El Sidebar */}
       <aside
         className={`
-          fixed left-0 top-0 h-screen w-64 z-[50]
+          fixed left-0 top-0 h-screen w-64 z-50
           bg-blue-950 dark:bg-zinc-950 text-white flex flex-col p-5 shadow-xl
           transition-transform duration-300 ease-in-out
-          ${isOpen ? "translate-x-0" : "-translate-x-full"} 
-          lg:translate-x-0 
+          ${isOpen ? "translate-x-0" : "-translate-x-full"}
+          lg:translate-x-0
         `}
       >
         <h2 className="text-2xl font-bold mb-10 tracking-tight">FINSPHERA</h2>
-        
+
         <nav className="flex flex-col gap-4">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             onClick={closeSidebar}
             className="flex items-center gap-3 p-2 rounded-lg hover:bg-blue-900 dark:hover:bg-zinc-800 transition-colors"
           >
