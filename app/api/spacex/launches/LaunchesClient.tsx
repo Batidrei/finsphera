@@ -3,54 +3,57 @@
 import { useEffect, useState, useMemo } from "react";
 import type { Launch } from "@/app/types/spacex";
 import Modal from "@/app/components/Modal";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import ScrollIndicator from "@/app/components/ScrollIndicator";
+import ThemeToggle from "@/app/components/ThemeToggle";
+import LaunchesSkeleton from "@/app/components/LaunchesSkeleton";
+import ErrorState from "@/app/components/ErrorState"; // Asegúrate de crear este componente
 
 /**
  * Client component that manages the visualization, filtering, and sorting
  * of SpaceX launches.
- * * @component
- * @returns {JSX.Element} The mission dashboard with sorting controls and details modal.
+ * @component
+ * @returns {JSX.Element} The mission dashboard.
  */
 export default function LaunchesClient() {
-  /** @type {Launch[]} State that stores the list of launches obtained from the API. */
   const [launches, setLaunches] = useState<Launch[]>([]);
-
-  /** @type {boolean} State that controls the initial loading indicator. */
   const [loading, setLoading] = useState(true);
-
-  /** @type {"asc" | "desc"} State that defines the chronological order of the launches. */
+  const [error, setError] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-
-  /** @type {boolean} State that controls the visibility of the Modal component. */
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  /** @type {Launch | null} State that stores the selected launch to display in the modal. */
   const [selectedLaunch, setSelectedLaunch] = useState<Launch | null>(null);
 
   /**
-   * Effect that fetches the SpaceX v5 API data on component mount.
-   * Filters launches without results and limits the sample to the first 28 records.
-   * * @async
+   * Fetches SpaceX data and handles errors.
+   * @async
    */
+  const fetchLaunches = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("https://api.spacexdata.com/v5/launches");
+
+      if (!res.ok) throw new Error("Could not connect to SpaceX database");
+
+      const data: Launch[] = await res.json();
+      const processed = data
+        .filter((l) => l.success !== null)
+        .slice(0, 28);
+
+      setLaunches(processed);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An unexpected error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetch("https://api.spacexdata.com/v5/launches")
-      .then((res) => res.json())
-      .then((data: Launch[]) => {
-        const processed = data
-          .filter((l) => l.success !== null)
-          .slice(0, 28);
-        setLaunches(processed);
-      })
-      .catch((err) => console.error("Error fetching SpaceX data:", err))
-      .finally(() => setLoading(false));
+    fetchLaunches();
   }, []);
 
   /**
-   * Processes and groups launches into blocks of 4 for row-based visualization.
-   * Automatically recalculates when the launch list or sort order changes.
-   * * @constant
-   * @type {Launch[][]}
+   * Memoized logic to sort and group launches.
    */
   const chunks = useMemo(() => {
     const sorted = [...launches].sort((a, b) => {
@@ -66,44 +69,54 @@ export default function LaunchesClient() {
     return result;
   }, [launches, sortOrder]);
 
-  /**
-   * Handles opening the modal and assigning the selected launch.
-   * * @param {Launch} launch - The launch object the user wants to inspect.
-   * @returns {void}
-   */
   const openModal = (launch: Launch) => {
     setSelectedLaunch(launch);
     setIsModalOpen(true);
   };
 
-  if (loading) return <p className="p-6 text-blue-900 dark:text-blue-400 font-medium animate-pulse">Loading launches...</p>;
+  // 1. Loading State
+  if (loading) return (
+    <section className="space-y-6 p-6 transition-colors duration-300">
+      <ScrollIndicator />
+      <LaunchesSkeleton />
+    </section>
+  );
+
+  // 2. Error State
+  if (error) return (
+    <section className="p-6 flex justify-center items-center min-h-[60vh]">
+      <ErrorState message={error} onRetry={fetchLaunches} />
+    </section>
+  );
 
   return (
     <section className="space-y-6 p-6 transition-colors duration-300">
       <ScrollIndicator />
 
       {/* Filter Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-zinc-900 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-zinc-800">
+      <div className="flex flex-row items-center justify-between gap-4 bg-white dark:bg-zinc-900 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-zinc-800 mt-25">
         <div className="flex items-center gap-2">
           <span className="text-sm font-semibold text-gray-500 dark:text-gray-300">Order by date:</span>
           <div className="flex bg-gray-100 dark:bg-zinc-800 p-1 rounded-xl">
             <button
               onClick={() => setSortOrder("asc")}
-              className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${sortOrder === "asc" ? "bg-white dark:bg-zinc-700 shadow-sm text-blue-600 dark:text-blue-400" : "text-gray-500"
-                }`}
+              className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                sortOrder === "asc" ? "bg-white dark:bg-zinc-700 shadow-sm text-blue-600 dark:text-blue-400" : "text-gray-500"
+              }`}
             >
               Oldest
             </button>
             <button
               onClick={() => setSortOrder("desc")}
-              className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${sortOrder === "desc" ? "bg-white dark:bg-zinc-700 shadow-sm text-blue-600 dark:text-blue-400" : "text-gray-500"
-                }`}
+              className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                sortOrder === "desc" ? "bg-white dark:bg-zinc-700 shadow-sm text-blue-600 dark:text-blue-400" : "text-gray-500"
+              }`}
             >
               Newest
             </button>
           </div>
         </div>
-        <p className="text-xs text-gray-500 dark:text-gray-300">Showing {launches.length} missions</p>
+        <ThemeToggle />
       </div>
 
       {/* Card Grid */}
@@ -151,7 +164,6 @@ export default function LaunchesClient() {
         }}
         title={selectedLaunch ? selectedLaunch.name : "SpaceX Information"}
       >
-        {/* Content starts here */}
         {selectedLaunch ? (
           <div className="space-y-4">
             <div className="flex justify-center bg-gray-100 dark:bg-zinc-800/50 rounded-xl p-4">
@@ -171,6 +183,19 @@ export default function LaunchesClient() {
                 <strong className="text-gray-900 dark:text-white">Flight Number:</strong>{" "}
                 {selectedLaunch.flight_number}
               </p>
+
+              {/* Embed Youtube with extra safety */}
+              {selectedLaunch.links.youtube_id && (
+                 <div className="rounded-xl overflow-hidden mt-4">
+                    <iframe
+                      className="w-full aspect-video"
+                      src={`https://www.youtube.com/embed/${selectedLaunch.links.youtube_id}`}
+                      title="YouTube video player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                 </div>
+              )}
             </div>
 
             {selectedLaunch.links.article && (
