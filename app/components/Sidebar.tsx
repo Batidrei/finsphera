@@ -14,7 +14,7 @@ export default function Sidebar() {
       {/* 1. Botón Hamburguesa - Solo visible en mobile (lg:hidden) */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-8 right-6 p-2 bg-white dark:bg-slate-800 text-shadow-gray-950 dark:text-white rounded-lg shadow-lg active:scale-90 transition-transform z-10"
+        className="lg:hidden fixed top-8 right-6 p-2 bg-white dark:bg-zinc-800 text-shadow-gray-950 dark:text-white rounded-lg shadow-lg active:scale-90 transition-transform z-10"
       >
         {isOpen ? "✕ Close" : "☰ Menu"}
       </button>
