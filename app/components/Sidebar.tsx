@@ -41,7 +41,7 @@ export default function Sidebar() {
           lg:translate-x-0
         `}
       >
-        <h2 className="text-2xl font-bold mb-10 tracking-tight">FINSPHERA</h2>
+        <h2 className="text-2xl font-bold mb-10">FINSPHERA</h2>
 
         <nav className="flex flex-col gap-4">
           <Link
