@@ -2,16 +2,16 @@
 
 A modern, responsive, and animated dashboard designed to track SpaceX launches using real-time data from the SpaceX API (v5).
 
-[Link Vercel](https://finsphera-fomprce55-batidreis-projects.vercel.app/)
+[Link Vercel](https://finsphera.vercel.app/)
 [Link GitHub](https://github.com/Batidrei/finsphera)
 
 ---
 
 ## 1. Architecture & Tech Stack
 
-- **Next.js:** 
-- **Tailwind CSS:** 
-- **Motion.dev:** 
+- **Next.js:**
+- **Tailwind CSS:**
+- **Motion.dev:**
 
 ```
 finsphera
@@ -58,7 +58,7 @@ finsphera
 
 This project was developed with the assistance of AI **(Gemini)**.
 
-I had to rely on AI, and I used Gemini because it's the most affordable and because it's the one I already have. Since it's been a while since I've fully immersed myself in a framework, I had to rely on it mainly for Next.js and generating functions and implementations, as well as for advice on architecture and best coding practices.
+Since it's been a while since I've worked entirely within a framework, I've had to rely on it primarily for Next.js and for generating functions and implementations, as well as for advice on architecture and coding best practices.
 
 ## 3. Design Decisions:
 
@@ -71,7 +71,7 @@ The theme color change feature was implemented for greater visual comfort.
 ## 4. Challenges & Trade-offs:
 The biggest challenge was using technologies that were new to me; there was a bit of a learning curve with both Next.js and Tailwind CSS, but thanks to the AI's help, this curve was less steep. Regarding Tailwind, I think it wasn't too difficult for me because I know CSS very well, and it was just a matter of adapting to its class structure.
 
-And well, with the knowledge I have, and the support of AI, I consider that a decent job was done, which could be greatly improved in terms of possibly improving the structure, the quality of the code, and even the design. 
+And well, with the knowledge I have, and the support of AI, I consider that a decent job was done, which could be greatly improved in terms of possibly improving the structure, the quality of the code, and even the design.
 
 The following explains in detail the challenges with each technology.
 
